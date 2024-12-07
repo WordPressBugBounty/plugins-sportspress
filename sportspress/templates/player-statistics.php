@@ -4,7 +4,7 @@
  *
  * @author      ThemeBoy
  * @package     SportsPress/Templates
- * @version   2.6.1
+ * @version     2.7.23
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -65,7 +65,9 @@ if ( is_array( $leagues ) ) :
 		}
 
 		if ( sizeof( $leagues ) > 1 ) {
-			printf( '<h3 class="sp-post-caption sp-player-statistics-section">%s</h3>', wp_kses_post( $section_label ) );
+			if ( null !== $section_label ) {
+				printf( '<h3 class="sp-post-caption sp-player-statistics-section">%s</h3>', wp_kses_post( $section_label ) );
+			}
 		}
 
 		foreach ( $leagues as $league ) :
