@@ -5,7 +5,7 @@
  * @author      ThemeBoy
  * @category    Admin
  * @package     SportsPress/Admin/Importers
- * @version     2.7.13
+ * @version     2.7.26
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -76,7 +76,7 @@ if ( class_exists( 'WP_Importer' ) ) {
 					continue;
 				endif;
 
-				$player_object = get_page_by_title( stripslashes( $player_name ), OBJECT, 'sp_player' );
+				$player_object = sp_get_post_by_title( stripslashes( $player_name ), 'sp_player' );
 
 				if ( $player_object ) :
 

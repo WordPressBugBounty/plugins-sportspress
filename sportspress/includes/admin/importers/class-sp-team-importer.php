@@ -5,7 +5,7 @@
  * @author      ThemeBoy
  * @category    Admin
  * @package     SportsPress/Admin/Importers
- * @version     2.7.13
+ * @version     2.7.26
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -75,7 +75,7 @@ if ( class_exists( 'WP_Importer' ) ) {
 				endif;
 
 				// Get or insert team
-				$team_object = sp_array_value( $_POST, 'merge', 0 ) ? get_page_by_title( stripslashes( $name ), OBJECT, 'sp_team' ) : false;
+				$team_object = sp_array_value( $_POST, 'merge', 0 ) ? sp_get_post_by_title( stripslashes( $name ), 'sp_team' ) : false;
 				if ( $team_object ) :
 					if ( $team_object->post_status != 'publish' ) :
 						wp_update_post(

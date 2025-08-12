@@ -5,7 +5,7 @@
  * @author    ThemeBoy
  * @category  Modules
  * @package   SportsPress/Modules
- * @version   2.7.9
+ * @version   2.7.26
  */
 
 // Exit if accessed directly
@@ -19,7 +19,7 @@ if ( ! class_exists( 'SportsPress_Icons' ) ) :
 	 * Main SportsPress Icons Class
 	 *
 	 * @class SportsPress_Icons
-	 * @version 2.7
+	 * @version 2.7.26
 	 */
 	class SportsPress_Icons {
 
@@ -51,7 +51,7 @@ if ( ! class_exists( 'SportsPress_Icons' ) ) :
 		 */
 		private function define_constants() {
 			if ( ! defined( 'SP_ICONS_VERSION' ) ) {
-				define( 'SP_ICONS_VERSION', '2.7' );
+				define( 'SP_ICONS_VERSION', '2.7.26' );
 			}
 
 			if ( ! defined( 'SP_ICONS_URL' ) ) {
@@ -148,6 +148,20 @@ if ( ! class_exists( 'SportsPress_Icons' ) ) :
 					$icons = '<i class="sp-icon-' . $icon . '" title="' . $title . '" style="color:' . $color . ' !important"></i> ' . $match[1] . '<br>';
 				} else {
 					$icons = str_repeat( '<i class="sp-icon-' . $icon . '" title="' . $title . '" style="color:' . $color . ' !important"></i> ', intval( $value ) );
+				}
+			}else{
+				// Check if the performance has a thumbnail ID
+				$thumbnail_id = get_post_meta( $id, '_thumbnail_id', true );
+				if ( ! empty( $thumbnail_id ) ) {
+					$title = sp_get_singular_name( $id );
+					preg_match( '#\((.*?)\)#', $value, $match );
+					// Get the URL of the thumbnail image
+					$custom_image = wp_get_attachment_image( $thumbnail_id, 'sportspress-fit-mini', "", array( "title" => $title ) );
+					if ( ! empty( $custom_image ) && ! empty( $match ) && isset( $match[1] ) ) {
+						$icons = $custom_image . $match[1] . '<br>';			
+					}else{
+						$icons = str_repeat( $custom_image . ' ', intval( $value ) );
+					}
 				}
 			}
 			return $icons;
